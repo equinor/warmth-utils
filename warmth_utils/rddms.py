@@ -314,8 +314,40 @@ async def download_epc():
     rts.timeframe_for_time_series_uuid(model, gts.uuid)
     # mesh
     # create an empty HexaGrid
-    uns, points, nodes_per_face, faces_per_cell, cell_face_is_right_handed = await get_mesh_points(mesh_epc, mesh_uns)
-    logging.info("Got mesh")
+    async with connect(msal_token()) as client:
+        uns, = await client.get_resqml_objects(mesh_uns)
+    logging.info("Got uns object")
+    async with connect(msal_token()) as client:
+        points = await client.get_array(
+            DataArrayIdentifier(
+                uri=str(mesh_epc), pathInResource=uns.geometry.points.coordinates.path_in_hdf_file
+            )
+        )
+    assert points.shape[0] == uns.geometry.node_count
+    logging.info("Got points")
+    async with connect(msal_token()) as client:
+        nodes_per_face = await client.get_array(
+            DataArrayIdentifier(
+                uri=str(mesh_epc), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
+            )
+        )
+    logging.info("Got nodes per face")
+    async with connect(msal_token()) as client:
+        faces_per_cell = await client.get_array(
+            DataArrayIdentifier(
+                uri=str(mesh_epc), pathInResource=uns.geometry.faces_per_cell.elements.values.path_in_hdf_file
+            )
+        )
+    logging.info("Got face per cell")
+    async with connect(msal_token()) as client:
+        cell_face_is_right_handed = await client.get_array(
+            DataArrayIdentifier(
+                uri=str(mesh_epc), pathInResource=uns.geometry.cell_face_is_right_handed.values.path_in_hdf_file
+            )
+        )
+    logging.info("Got cell faces right handed")
+    #uns, points, nodes_per_face, faces_per_cell, cell_face_is_right_handed = await get_mesh_points(mesh_epc, mesh_uns)
+    logging.info("Got all mesh data")
     num_time_indices = len(input_horizons_ages)
 
 
