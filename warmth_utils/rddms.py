@@ -45,7 +45,6 @@ async def get_resqml_object(url):
         rddms_out = await client.get_data_objects(url)
         return rddms_out
 def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.ContinuousProperty | ro.DiscreteProperty, source_info: str):
-    print(f"Add timeseries data {props.citation.title} to model")
     # nodes0 = nodes.copy()
     if isinstance(props, ro.DiscreteProperty):
         discrete = True
@@ -98,6 +97,7 @@ def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.Continuo
                                                  realization=0,
                                                  time_index=time_index,
                                                  indexable_element=str(props.indexable_element).split(".")[-1].lower())
+    logging.info(f"Added timeseries data {props.citation.title} to model")
     return
 async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_years_original:list[int],props: list[str], shape):
     points = np.zeros(shape)
@@ -154,6 +154,8 @@ def store_non_timeseries_data(resqpyModel: rq.Model, props: ro.ContinuousPropert
                                     props.indexable_element).split(".")[-1].lower(),
                                 uom=uom,
                                 discrete=discrete)
+    logging.info(f"Added non-timeseries data {props.citation.title} to model")
+    return
 
 async def fetch_store_non_timeseries(resqpyModel: rq.Model,mesh_epc, data_url, hexa_uuid, prop_name: str):
     props1, values1 = await get_mesh_property(mesh_epc, data_url)
@@ -429,5 +431,3 @@ async def download_epc():
     uuids = m.uuids(obj_type='DiscreteProperty')
     prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
     return MESH_PATH
-
-
