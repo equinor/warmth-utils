@@ -104,7 +104,7 @@ async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_y
     count = 0
     for props_index in range(len(props)):
         url_points = props[props_index]
-        props1: ro.ContinuousProperty = await get_mesh_prop_meta(msal_token(), url_points)
+        props1: ro.ContinuousProperty = await get_mesh_prop_meta(url_points)
         # store according to time index
         time_of_props = times_in_years_original[props1.time_index.index]
         try:
