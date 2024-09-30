@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "warmth-utils"
+version = "0.1.0"
+description = ""
+authors = ["Adam Cheng <52572642+adamchengtkc@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+msal = "^1.31.0"
+pyetp = "^0.0.22"
+azure-storage-blob = "^12.23.0"
+xmltodict = "^0.13.0"
+resqpy = "^4.17.0"
+pydantic = "^1.10"
+
+
+[tool.poetry.group.dev.dependencies]
+datamodel-code-generator = "^0.26.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

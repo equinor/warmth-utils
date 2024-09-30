@@ -1,1 +1,1 @@
-# warmth-utils
+poetry run datamodel-codegen  --input ./warmth_utils/swagger.json --input-file-type openapi --output ./warmth_utils/datamodels
