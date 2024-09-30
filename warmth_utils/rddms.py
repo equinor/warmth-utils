@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 import numpy as np
 import pyetp.resqml_objects as ro
@@ -302,6 +303,7 @@ async def download_epc():
 
     # time series
     timeseries_object = await get_resqml_object(mesh_ts)
+    logging.info("Got timeseries object")
     timeseries_object = xmltodict.parse(timeseries_object[0].data)
     times_in_years_original = [int(
         i["ns0:YearOffset"]) for i in timeseries_object["ns0:TimeSeries"]["ns0:Time"]]
@@ -313,7 +315,7 @@ async def download_epc():
     # mesh
     # create an empty HexaGrid
     uns, points, nodes_per_face, faces_per_cell, cell_face_is_right_handed = await get_mesh_points(mesh_epc, mesh_uns)
-
+    logging.info("Got mesh")
     num_time_indices = len(input_horizons_ages)
 
 
@@ -368,7 +370,7 @@ async def download_epc():
                        [props_uri['Expelled_oil_specific'][1],
                         'fluid volume', cell_time_series_data_shape],
                        [props_uri['Expelled_gas_specific'][1], 'fluid volume', cell_time_series_data_shape]]
-
+    logging.getLogger("resqpy").setLevel(logging.ERROR)  
     for i in timeseries_data:
         try:
             await fetch_and_save_timeseries_data(mesh_epc,input_horizons_ages,times_in_years_original, pc, gts, i[0], i[1], i[2])
@@ -376,7 +378,7 @@ async def download_epc():
             time.sleep(60)
             await fetch_and_save_timeseries_data(mesh_epc,input_horizons_ages,times_in_years_original,pc, gts, i[0], i[1], i[2])
         time.sleep(10)
-
+    logging.getLogger("resqpy").setLevel(logging.WARNING) 
     non_timeseries_data = ["Porosity_decay", "LayerID", "Radiogenic_heat_production",
                            "Age", "Porosity_initial", "thermal_conductivity"]
 
