@@ -139,10 +139,10 @@ def put_file_manifest(meshObj: dict, fileSource: str) -> str:
         print(r.text)
     return r.json()["id"]
 
-def add_migriResults_to_mesh_manifest(fileObjId:str, existingMeshObj:dict, result_maps:dict, token = msal_token()):
+def add_migriResults_to_mesh_manifest(fileObjId:str, existingMeshObj:dict, result_maps:dict):
     existingMeshObj["data"]["ExtensionProperties"]["migris"] = result_maps
     existingMeshObj["data"]["Datasets"]= [fileObjId]
-    return overwrite_mesh_obj(existingMeshObj, token)
+    return overwrite_mesh_obj(existingMeshObj)
 
 def upload_migri_results(model_id: str,model_version:int, filepath: str| Path, result_maps: dict):
     sim_id = get_simulation_id(model_id, model_version)
