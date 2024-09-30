@@ -57,6 +57,9 @@ class ObservationData(BaseModel):
     burialDepth: float
     value: float
     observationError: float
+class ObservationDataMoho(BaseModel):
+    value: float
+    observationError: float
 class Type4(Enum):
     class_ = 'class'
     vsh = 'vsh'
@@ -223,7 +226,7 @@ class Model(BaseModel):
 class FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumber(
     BaseModel
 ):
-    crustalThickness: Optional[CrustalThickness] = None
+    crustalThickness: Optional[ObservationDataMoho] = None
     vitrinite: Optional[List[ObservationData]] = None
     temperature: Optional[List[ObservationData]] = None
     bias: Optional[float] = None
