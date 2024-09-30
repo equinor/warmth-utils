@@ -8,7 +8,7 @@ class UTIL_SETTINGS(BaseSettings):
     CLIENT_ID: UUID4
     CLIENT_SECRET: str
     TENANT_ID: UUID4
-    CACHEDIRECTORY: str = "./"
+    CACHEDIR: str = "./"
     MODELSPEC:str
     RDDMSURL: str
     RDDMSDataspace: str
@@ -24,7 +24,7 @@ class UTIL_SETTINGS(BaseSettings):
     FILEMANIFESTVERSION:str = "1.0.0"
 
 config = UTIL_SETTINGS()
-CACHE_DIR = Path(config.CACHEDIRECTORY)
+CACHE_DIR = Path(config.CACHEDIR)
 MESH_PATH = CACHE_DIR / "results.epc"
 MODEL_SPEC = Path(config.MODELSPEC)
 
