@@ -45,7 +45,7 @@ def get_mesh_manifest(sim_id:str):
 
 
 def get_simulation_id(model_id:str, version:int)-> str:
-    model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{version}"
+    model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{int(version)}"
     query = f'(tags.geomintType:simulation) AND (data.LineageAssertions.ID:{model_obj_osdu_id})'
     uri = f"{config.OSDUHOST}/api/search/v2/query"
     data = {

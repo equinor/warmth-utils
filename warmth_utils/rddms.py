@@ -257,7 +257,7 @@ async def download_epc():
     crs.create_xml()
 
     # time series
-    timeseries_object = await get_resqml_object(msal_token(), mesh_ts)
+    timeseries_object = await get_resqml_object(mesh_ts)
     timeseries_object = xmltodict.parse(timeseries_object[0].data)
     times_in_years_original = [int(
         i["ns0:YearOffset"]) for i in timeseries_object["ns0:TimeSeries"]["ns0:Time"]]
