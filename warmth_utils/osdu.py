@@ -131,7 +131,8 @@ def put_file_manifest(meshObj: dict, fileSource: str) -> str:
                 }
             }
         },
-        "acl":meshObj["acl"]
+        "acl":meshObj["acl"],
+        "tags": {"geomintType": "migri"}
         }
     uri = f"{config.OSDUHOST}/api/file/v2/files/metadata"
     r = requests.post(url=uri,headers=get_header(),json=data)
