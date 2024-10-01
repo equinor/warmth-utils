@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from azure.storage.blob import BlobClient
 import time
@@ -25,8 +26,11 @@ def searchMesh(sim_id:str):
         }
       }
     r = requests.post(uri, headers= get_header(),json=data)
-    if r.status_code != 200:
-        print(r.text)
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed search mesh manifest {r.text}")
+        raise e
     return r.json()
 def get_mesh_spec(sim_id:str)-> dict:
     data = get_mesh_manifest(sim_id)
@@ -62,16 +66,22 @@ def get_simulation_id(model_id:str, version:int)-> str:
         }
       }
     r = requests.post(uri, headers= get_header(),json=data)
-    if r.status_code != 200:
-        print(r.text)
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed getting simulation id {r.text}")
+        raise e
     r = r.json()
     return r["results"][0]["id"]
 
 def get_obj(obj_id:str):
     uri = f"{config.OSDUHOST}/api/storage/v2/records/{obj_id}"
     r = requests.get(url=uri,headers=get_header())
-    if r.status_code != 200:
-        print(r.text)
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed getting object manifest {r.text}")
+        raise e
     return r.json()
 
 def get_header()->dict:
@@ -100,16 +110,19 @@ def overwrite_mesh_obj (new_mesh_obj:dict) -> None:
     try:
         r.raise_for_status()
     except Exception as e:
-        print(r.text)
-        raise Exception("Cannot update new mesh")      
+        logging.error(f"Failed updating mesh manifest {r.text}")  
+        raise e
     return
 
 
     
 def get_file_uploadURL():
     r = requests.get(f"{config.OSDUHOST}/api/file/v2/files/uploadURL", headers=get_header(),params={"expiryTime":"15M"})
-    if r.status_code != 200:
-        print(r.text)
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed getting signed upload url {r.text}")
+        raise e
     return r.json()
 #)
 
@@ -136,8 +149,11 @@ def put_file_manifest(meshObj: dict, fileSource: str) -> str:
         }
     uri = f"{config.OSDUHOST}/api/file/v2/files/metadata"
     r = requests.post(url=uri,headers=get_header(),json=data)
-    if r.status_code != 200:
-        print(r.text)
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed creating file manifest {r.text}")
+        raise e
     return r.json()["id"]
 
 def add_migriResults_to_mesh_manifest(fileObjId:str, existingMeshObj:dict, result_maps:dict):
