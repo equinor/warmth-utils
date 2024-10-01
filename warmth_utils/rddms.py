@@ -115,6 +115,7 @@ async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_y
         arr = await get_mesh_prop_array( epc, props1)
         points[index_in_new_gts] = arr
         count += 1
+        logging.info(f"fetch {props1.citation.title} progress {count}/{points.shape[0]} ")
     assert count == total_download
     return points, props1
 
@@ -126,7 +127,7 @@ async def fetch_and_save_timeseries_data(epc:str, input_horizons_ages:list[int],
 def parse_age(data):
     return data
 
-
+ 
 def store_non_timeseries_data(resqpyModel: rq.Model, props: ro.ContinuousProperty | ro.DiscreteProperty, hexa_uuid, data: np.ndarray):
     if isinstance(props, ro.DiscreteProperty):
         discrete = True
@@ -431,3 +432,5 @@ async def download_epc():
     uuids = m.uuids(obj_type='DiscreteProperty')
     prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
     return MESH_PATH
+
+
