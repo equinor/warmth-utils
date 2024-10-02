@@ -271,6 +271,7 @@ class GeomintLithology(BaseModel):
     radiogenicHeat: float
     heatCapacity: HeatCapacity
     migri: Migri
+    id: str
 class GeomintFullModel(BaseModel):
     class Config:
         extra = Extra.allow
