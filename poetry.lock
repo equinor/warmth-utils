@@ -131,13 +131,13 @@ aio = ["aiohttp (>=3.0)"]
 
 [[package]]
 name = "azure-storage-blob"
-version = "12.23.0"
+version = "12.23.1"
 description = "Microsoft Azure Blob Storage Client Library for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "azure_storage_blob-12.23.0-py3-none-any.whl", hash = "sha256:8ac4b34624ed075eda1e38f0c6dadb601e1b199e27a09aa63edc429bf4a23329"},
-    {file = "azure_storage_blob-12.23.0.tar.gz", hash = "sha256:2fadbceda1d99c4a72dfd32e0122d7bca8b5e8d2563f5c624d634aeaff49c9df"},
+    {file = "azure_storage_blob-12.23.1-py3-none-any.whl", hash = "sha256:1c2238aa841d1545f42714a5017c010366137a44a0605da2d45f770174bfc6b4"},
+    {file = "azure_storage_blob-12.23.1.tar.gz", hash = "sha256:a587e54d4e39d2a27bd75109db164ffa2058fe194061e5446c5a89bca918272f"},
 ]
 
 [package.dependencies]
@@ -668,13 +668,13 @@ tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
 name = "datamodel-code-generator"
-version = "0.26.0"
+version = "0.26.1"
 description = "Datamodel Code Generator"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "datamodel_code_generator-0.26.0-py3-none-any.whl", hash = "sha256:29af7c1991d6b346d4f6cdf2f11b74c09d84c73b1ed7229adc4f64316dfbb48d"},
-    {file = "datamodel_code_generator-0.26.0.tar.gz", hash = "sha256:5d1db3dd4d31ee8bb70426d8705f5b059bea15e0dd79e015a28373b5da98ff00"},
+    {file = "datamodel_code_generator-0.26.1-py3-none-any.whl", hash = "sha256:bbe8a6cc0b9cfdbfd294e336e02b4c50b481ffc3b3c608b5578b6d7aa02cc8ae"},
+    {file = "datamodel_code_generator-0.26.1.tar.gz", hash = "sha256:3b7b49c4230fa197ca28847e1e8996cd664638a7e91796c826a61c60d4ccd8a2"},
 ]
 
 [package.dependencies]
@@ -686,8 +686,8 @@ isort = ">=4.3.21,<6.0"
 jinja2 = ">=2.10.1,<4.0"
 packaging = "*"
 pydantic = [
-    {version = ">=1.10.0,<2.4.0 || >2.4.0,<3.0", extras = ["email"], markers = "python_version >= \"3.11\" and python_version < \"4.0\""},
     {version = ">=1.5.1,<2.4.0 || >2.4.0,<3.0", extras = ["email"], markers = "python_version < \"3.10\""},
+    {version = ">=1.10.0,<2.4.0 || >2.4.0,<3.0", extras = ["email"], markers = "python_version >= \"3.11\" and python_version < \"4.0\""},
     {version = ">=1.9.0,<2.4.0 || >2.4.0,<3.0", extras = ["email"], markers = "python_version >= \"3.10\" and python_version < \"3.11\""},
 ]
 pyyaml = ">=6.0.1"
@@ -935,36 +935,41 @@ files = [
 
 [[package]]
 name = "h5py"
-version = "3.11.0"
+version = "3.12.1"
 description = "Read and write HDF5 files from Python"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "h5py-3.11.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:1625fd24ad6cfc9c1ccd44a66dac2396e7ee74940776792772819fc69f3a3731"},
-    {file = "h5py-3.11.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c072655ad1d5fe9ef462445d3e77a8166cbfa5e599045f8aa3c19b75315f10e5"},
-    {file = "h5py-3.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:77b19a40788e3e362b54af4dcf9e6fde59ca016db2c61360aa30b47c7b7cef00"},
-    {file = "h5py-3.11.0-cp310-cp310-win_amd64.whl", hash = "sha256:ef4e2f338fc763f50a8113890f455e1a70acd42a4d083370ceb80c463d803972"},
-    {file = "h5py-3.11.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:bbd732a08187a9e2a6ecf9e8af713f1d68256ee0f7c8b652a32795670fb481ba"},
-    {file = "h5py-3.11.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:75bd7b3d93fbeee40860fd70cdc88df4464e06b70a5ad9ce1446f5f32eb84007"},
-    {file = "h5py-3.11.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:52c416f8eb0daae39dabe71415cb531f95dce2d81e1f61a74537a50c63b28ab3"},
-    {file = "h5py-3.11.0-cp311-cp311-win_amd64.whl", hash = "sha256:083e0329ae534a264940d6513f47f5ada617da536d8dccbafc3026aefc33c90e"},
-    {file = "h5py-3.11.0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:a76cae64080210389a571c7d13c94a1a6cf8cb75153044fd1f822a962c97aeab"},
-    {file = "h5py-3.11.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f3736fe21da2b7d8a13fe8fe415f1272d2a1ccdeff4849c1421d2fb30fd533bc"},
-    {file = "h5py-3.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:aa6ae84a14103e8dc19266ef4c3e5d7c00b68f21d07f2966f0ca7bdb6c2761fb"},
-    {file = "h5py-3.11.0-cp312-cp312-win_amd64.whl", hash = "sha256:21dbdc5343f53b2e25404673c4f00a3335aef25521bd5fa8c707ec3833934892"},
-    {file = "h5py-3.11.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:754c0c2e373d13d6309f408325343b642eb0f40f1a6ad21779cfa9502209e150"},
-    {file = "h5py-3.11.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:731839240c59ba219d4cb3bc5880d438248533366f102402cfa0621b71796b62"},
-    {file = "h5py-3.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8ec9df3dd2018904c4cc06331951e274f3f3fd091e6d6cc350aaa90fa9b42a76"},
-    {file = "h5py-3.11.0-cp38-cp38-win_amd64.whl", hash = "sha256:55106b04e2c83dfb73dc8732e9abad69d83a436b5b82b773481d95d17b9685e1"},
-    {file = "h5py-3.11.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:f4e025e852754ca833401777c25888acb96889ee2c27e7e629a19aee288833f0"},
-    {file = "h5py-3.11.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:6c4b760082626120031d7902cd983d8c1f424cdba2809f1067511ef283629d4b"},
-    {file = "h5py-3.11.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:67462d0669f8f5459529de179f7771bd697389fcb3faab54d63bf788599a48ea"},
-    {file = "h5py-3.11.0-cp39-cp39-win_amd64.whl", hash = "sha256:d9c944d364688f827dc889cf83f1fca311caf4fa50b19f009d1f2b525edd33a3"},
-    {file = "h5py-3.11.0.tar.gz", hash = "sha256:7b7e8f78072a2edec87c9836f25f34203fd492a4475709a18b417a33cfb21fa9"},
+    {file = "h5py-3.12.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2f0f1a382cbf494679c07b4371f90c70391dedb027d517ac94fa2c05299dacda"},
+    {file = "h5py-3.12.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:cb65f619dfbdd15e662423e8d257780f9a66677eae5b4b3fc9dca70b5fd2d2a3"},
+    {file = "h5py-3.12.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3b15d8dbd912c97541312c0e07438864d27dbca857c5ad634de68110c6beb1c2"},
+    {file = "h5py-3.12.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:59685fe40d8c1fbbee088c88cd4da415a2f8bee5c270337dc5a1c4aa634e3307"},
+    {file = "h5py-3.12.1-cp310-cp310-win_amd64.whl", hash = "sha256:577d618d6b6dea3da07d13cc903ef9634cde5596b13e832476dd861aaf651f3e"},
+    {file = "h5py-3.12.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:ccd9006d92232727d23f784795191bfd02294a4f2ba68708825cb1da39511a93"},
+    {file = "h5py-3.12.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:ad8a76557880aed5234cfe7279805f4ab5ce16b17954606cca90d578d3e713ef"},
+    {file = "h5py-3.12.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1473348139b885393125126258ae2d70753ef7e9cec8e7848434f385ae72069e"},
+    {file = "h5py-3.12.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:018a4597f35092ae3fb28ee851fdc756d2b88c96336b8480e124ce1ac6fb9166"},
+    {file = "h5py-3.12.1-cp311-cp311-win_amd64.whl", hash = "sha256:3fdf95092d60e8130ba6ae0ef7a9bd4ade8edbe3569c13ebbaf39baefffc5ba4"},
+    {file = "h5py-3.12.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:06a903a4e4e9e3ebbc8b548959c3c2552ca2d70dac14fcfa650d9261c66939ed"},
+    {file = "h5py-3.12.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:7b3b8f3b48717e46c6a790e3128d39c61ab595ae0a7237f06dfad6a3b51d5351"},
+    {file = "h5py-3.12.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:050a4f2c9126054515169c49cb900949814987f0c7ae74c341b0c9f9b5056834"},
+    {file = "h5py-3.12.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5c4b41d1019322a5afc5082864dfd6359f8935ecd37c11ac0029be78c5d112c9"},
+    {file = "h5py-3.12.1-cp312-cp312-win_amd64.whl", hash = "sha256:e4d51919110a030913201422fb07987db4338eba5ec8c5a15d6fab8e03d443fc"},
+    {file = "h5py-3.12.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:513171e90ed92236fc2ca363ce7a2fc6f2827375efcbb0cc7fbdd7fe11fecafc"},
+    {file = "h5py-3.12.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:59400f88343b79655a242068a9c900001a34b63e3afb040bd7cdf717e440f653"},
+    {file = "h5py-3.12.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d3e465aee0ec353949f0f46bf6c6f9790a2006af896cee7c178a8c3e5090aa32"},
+    {file = "h5py-3.12.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ba51c0c5e029bb5420a343586ff79d56e7455d496d18a30309616fdbeed1068f"},
+    {file = "h5py-3.12.1-cp313-cp313-win_amd64.whl", hash = "sha256:52ab036c6c97055b85b2a242cb540ff9590bacfda0c03dd0cf0661b311f522f8"},
+    {file = "h5py-3.12.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d2b8dd64f127d8b324f5d2cd1c0fd6f68af69084e9e47d27efeb9e28e685af3e"},
+    {file = "h5py-3.12.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:4532c7e97fbef3d029735db8b6f5bf01222d9ece41e309b20d63cfaae2fb5c4d"},
+    {file = "h5py-3.12.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6fdf6d7936fa824acfa27305fe2d9f39968e539d831c5bae0e0d83ed521ad1ac"},
+    {file = "h5py-3.12.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:84342bffd1f82d4f036433e7039e241a243531a1d3acd7341b35ae58cdab05bf"},
+    {file = "h5py-3.12.1-cp39-cp39-win_amd64.whl", hash = "sha256:62be1fc0ef195891949b2c627ec06bc8e837ff62d5b911b6e42e38e0f20a897d"},
+    {file = "h5py-3.12.1.tar.gz", hash = "sha256:326d70b53d31baa61f00b8aa5f95c2fcb9621a3ee8365d770c551a13dbbcbfdf"},
 ]
 
 [package.dependencies]
-numpy = ">=1.17.3"
+numpy = ">=1.19.3"
 
 [[package]]
 name = "hdf5plugin"
@@ -990,13 +995,13 @@ test = ["blosc2 (>=2.5.1)", "blosc2-grok (>=0.2.2)"]
 
 [[package]]
 name = "httpcore"
-version = "1.0.5"
+version = "1.0.6"
 description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpcore-1.0.5-py3-none-any.whl", hash = "sha256:421f18bac248b25d310f3cacd198d55b8e6125c107797b609ff9b7a6ba7991b5"},
-    {file = "httpcore-1.0.5.tar.gz", hash = "sha256:34a38e2f9291467ee3b44e89dd52615370e152954ba21721378a87b2960f7a61"},
+    {file = "httpcore-1.0.6-py3-none-any.whl", hash = "sha256:27b59625743b85577a8c0e10e55b50b5368a4f2cfe8cc7bcfa9cf00829c2682f"},
+    {file = "httpcore-1.0.6.tar.gz", hash = "sha256:73f6dbd6eb8c21bbf7ef8efad555481853f5f6acdeaff1edb0694289269ee17f"},
 ]
 
 [package.dependencies]
@@ -1007,7 +1012,7 @@ h11 = ">=0.13,<0.15"
 asyncio = ["anyio (>=4.0,<5.0)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
-trio = ["trio (>=0.22.0,<0.26.0)"]
+trio = ["trio (>=0.22.0,<1.0)"]
 
 [[package]]
 name = "httpx"
@@ -1900,8 +1905,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.23.2", markers = "python_version >= \"3.11\""},
     {version = ">=1.20.3", markers = "python_version < \"3.10\""},
+    {version = ">=1.23.2", markers = "python_version >= \"3.11\""},
     {version = ">=1.21.0", markers = "python_version >= \"3.10\" and python_version < \"3.11\""},
 ]
 python-dateutil = ">=2.8.1"
@@ -2166,13 +2171,13 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pyetp"
-version = "0.0.22"
+version = "0.0.24"
 description = "Interface with OSDU RDDMS using ETP protocol"
 optional = false
 python-versions = "<3.12,>=3.9"
 files = [
-    {file = "pyetp-0.0.22-py3-none-any.whl", hash = "sha256:f7704995ff1e10723ecbb6175462e3e46dd8c2349508433fbb209d49df3de767"},
-    {file = "pyetp-0.0.22.tar.gz", hash = "sha256:4d6885e74ecbd1063fb75772189e1ba52eebdfc48f628883872d62b98106fc91"},
+    {file = "pyetp-0.0.24-py3-none-any.whl", hash = "sha256:45ccd46e07e2b105fafc015c19e182554837a203c300634b3129313a008fe527"},
+    {file = "pyetp-0.0.24.tar.gz", hash = "sha256:8a049c5fe2f7f7d9dacb4694256214dd80d303559d9dfc07f6a890a28896580e"},
 ]
 
 [package.dependencies]
@@ -2314,21 +2319,21 @@ files = [
 
 [[package]]
 name = "redis"
-version = "5.0.8"
+version = "5.1.0"
 description = "Python client for Redis database and key-value store"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "redis-5.0.8-py3-none-any.whl", hash = "sha256:56134ee08ea909106090934adc36f65c9bcbbaecea5b21ba704ba6fb561f8eb4"},
-    {file = "redis-5.0.8.tar.gz", hash = "sha256:0c5b10d387568dfe0698c6fad6615750c24170e548ca2deac10c649d463e9870"},
+    {file = "redis-5.1.0-py3-none-any.whl", hash = "sha256:fd4fccba0d7f6aa48c58a78d76ddb4afc698f5da4a2c1d03d916e4fd7ab88cdd"},
+    {file = "redis-5.1.0.tar.gz", hash = "sha256:b756df1e4a3858fcc0ef861f3fc53623a96c41e2b1f5304e09e0fe758d333d40"},
 ]
 
 [package.dependencies]
 async-timeout = {version = ">=4.0.3", markers = "python_full_version < \"3.11.3\""}
 
 [package.extras]
-hiredis = ["hiredis (>1.0.0)"]
-ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==20.0.1)", "requests (>=2.26.0)"]
+hiredis = ["hiredis (>=3.0.0)"]
+ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==23.2.1)", "requests (>=2.31.0)"]
 
 [[package]]
 name = "requests"
@@ -2371,13 +2376,13 @@ doc = ["sphinx", "sphinx-rtd-theme"]
 
 [[package]]
 name = "resqpy"
-version = "4.17.0"
+version = "4.17.10"
 description = "Python API for working with RESQML models"
 optional = false
 python-versions = "<3.12,>=3.8.1"
 files = [
-    {file = "resqpy-4.17.0-py3-none-any.whl", hash = "sha256:65994cc5f88552805b74a349b294c2ea0f51848635217886a82a2aee4cfb1f51"},
-    {file = "resqpy-4.17.0.tar.gz", hash = "sha256:1da9776b945d3082f9be11e869628a7b3dd5a0bf219752d7ec760970af3d8a12"},
+    {file = "resqpy-4.17.10-py3-none-any.whl", hash = "sha256:576ca1d568e96d838173a5d7a1bd990a06a425037ddc3eef81a211c95d7554a9"},
+    {file = "resqpy-4.17.10.tar.gz", hash = "sha256:594c063969a8b92ded09199569e17e3846c8317bc2639d6ffb776cc3012f5cb3"},
 ]
 
 [package.dependencies]
@@ -2904,4 +2909,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "a1ec6d9396a0d047149edb9012ffa0428578f28c8b5ace983c186e8dd0571d31"
+content-hash = "8107763c05a7d2468950f4950288585300397238ff8016b8ba4c235ceb55f7ac"

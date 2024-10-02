@@ -33,5 +33,6 @@ SETTINGS.etp_url= config.RDDMSURL
 SETTINGS.application_name = "geomint"
 SETTINGS.application_version = "0.0.1"
 SETTINGS.dataspace = config.RDDMSDataspace
+SETTINGS.data_partition = config.OSDUPARTITION
 pyetp_logger.setLevel(logging.WARNING)
 
