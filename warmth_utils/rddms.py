@@ -2,6 +2,7 @@ import asyncio
 import logging
 import time
 import numpy as np
+from pathlib import Path
 import pyetp.resqml_objects as ro
 from pyetp.types import DataArrayIdentifier
 from resqpy.property.property_collection import PropertyCollection
@@ -21,7 +22,13 @@ from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
 
 
-# Helper functions
+async def download_map(epc_uri, gri_uri, save_path:str):
+    async with connect(msal_token()) as client:
+        surf = await client.get_xtgeo_surface(epc_uri,gri_uri)
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+        surf.to_file(save_path)
+        return
+    
 async def put_resqml_objects(obj: ro.AbstractObject):
     async with connect(msal_token()) as client:
         rddms_out = await client.put_resqml_objects(obj, dataspace=config.RDDMSDataspace)
