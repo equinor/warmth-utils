@@ -196,8 +196,8 @@ async def get_mesh_prop_array(epc_uri, cprop):
                         uri=str(epc_uri), pathInResource=cprop.patch_of_values[0].values.values.path_in_hdf_file,
                     )
                 )
-
-async def get_mesh_points(epc_uri, uns_uri):
+            
+async def get_mesh_points_only(epc_uri, uns_uri):
     sem = asyncio.Semaphore(config.N_THREADS)
     async with sem:
         try:
@@ -208,30 +208,37 @@ async def get_mesh_points(epc_uri, uns_uri):
                 uns, = await client.get_resqml_objects(uns_uri)
         try:
             async with connect(msal_token()) as client:
-                nodes_per_face = await client.get_array(
+                points = await client.get_array(
                     DataArrayIdentifier(
-                        uri=str(epc_uri), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
+                        uri=str(epc_uri), pathInResource=uns.geometry.points.coordinates.path_in_hdf_file
                     )
                 )
         except:
             async with connect(msal_token()) as client:
-                nodes_per_face = await client.get_array(
+                points = await client.get_array(
                     DataArrayIdentifier(
-                        uri=str(epc_uri), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
+                        uri=str(epc_uri), pathInResource=uns.geometry.points.coordinates.path_in_hdf_file
                     )
                 )
+
+        return uns, points
+    
+async def get_mesh_points(epc_uri, uns_uri):
+    sem = asyncio.Semaphore(config.N_THREADS)
+    async with sem:
+        uns, points = await get_mesh_points_only(epc_uri, uns_uri)
         try:
             async with connect(msal_token()) as client:
-                points = await client.get_array(
+                nodes_per_face = await client.get_array(
                     DataArrayIdentifier(
-                        uri=str(epc_uri), pathInResource=uns.geometry.points.coordinates.path_in_hdf_file
+                        uri=str(epc_uri), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
                     )
                 )
         except:
             async with connect(msal_token()) as client:
-                points = await client.get_array(
+                nodes_per_face = await client.get_array(
                     DataArrayIdentifier(
-                        uri=str(epc_uri), pathInResource=uns.geometry.points.coordinates.path_in_hdf_file
+                        uri=str(epc_uri), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
                     )
                 )
         try:
