@@ -224,6 +224,7 @@ class Model(BaseModel):
     version: float
     id: str
     aoi: list[Tuple[float, float]]
+    inc: Optional[int] = None
 
 class FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumber(
     BaseModel
