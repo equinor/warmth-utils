@@ -192,7 +192,7 @@ class Domain(BaseModel):
     initialCondition: InitialCondition
     lithosphereProperties: LithosphereProperties
     riftEvents: List[RiftEvent]
-    extent: List[List[int,float]]
+    extent: List[List[float]]
 
 
 class TectonicModel(BaseModel):
