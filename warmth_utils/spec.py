@@ -2,8 +2,7 @@
 from enum import Enum
 from typing import Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, Extra, confloat
-class GeomintsPolygon(BaseModel):
-    __root__: List[List[float]]
+
 class PData(BaseModel):
     class Config:
         extra = Extra.allow
@@ -193,7 +192,7 @@ class Domain(BaseModel):
     initialCondition: InitialCondition
     lithosphereProperties: LithosphereProperties
     riftEvents: List[RiftEvent]
-    extent: GeomintsPolygon
+    extent: List[List[int,float]]
 
 
 class TectonicModel(BaseModel):
