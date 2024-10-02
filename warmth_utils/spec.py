@@ -13,7 +13,7 @@ class PData(BaseModel):
     crsName: str
 
     wkt: str
-    epsg: float
+    epsg: int
     crsId: str
 class GeomintRecordInput(BaseModel):
     class Config:
@@ -226,29 +226,14 @@ class Model(BaseModel):
     aoi: list[Tuple[float, float]]
     inc: Optional[int] = None
 
-class FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumber(
-    BaseModel
-):
+class WellboreObservations(BaseModel):
     crustalThickness: Optional[ObservationDataMoho] = None
     vitrinite: Optional[List[ObservationData]] = None
     temperature: Optional[List[ObservationData]] = None
     bias: Optional[float] = None
     y: float
     x: float
-class FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumberModel(
-    BaseModel
-):
-    __root__: Optional[
-        Dict[
-            str,
-            FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumber,
-        ]
-    ] = None
 
-class WellboreObservations(BaseModel):
-    __root__: (
-        FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumberModel
-    )
 class Map(BaseModel):
     id: str
     RDDMS: List[str]
@@ -281,7 +266,7 @@ class GeomintFullModel(BaseModel):
     lithologies: List[GeomintLithology]
     maps: List[Map]
     pauseAfterCalibration: Optional[bool] = None
-    observations: Optional[WellboreObservations] = None
+    observations: Optional[Dict[str,WellboreObservations]] = None
 
 
 
