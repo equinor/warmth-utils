@@ -1,6 +1,6 @@
 
 from enum import Enum
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Literal, Optional, Tuple, Union
 from pydantic import BaseModel, Extra, confloat
 
 class PData(BaseModel):
@@ -26,31 +26,15 @@ class Porosity(BaseModel):
     initial: float
 
 
-class PorosityDependent(Enum):
-    boolean_True = True
-
-
-class TemperatureDependent(Enum):
-    boolean_True = True
-
-
 class Conductivity(BaseModel):
-    porosityDependent: PorosityDependent
-    temperatureDependent: TemperatureDependent
+    porosityDependent: bool
+    temperatureDependent: bool
     value: float
 
 
-class PorosityDependent1(Enum):
-    boolean_False = False
-
-
-class TemperatureDependent1(Enum):
-    boolean_False = False
-
-
 class HeatCapacity(BaseModel):
-    porosityDependent: PorosityDependent1
-    temperatureDependent: TemperatureDependent1
+    porosityDependent: bool
+    temperatureDependent: bool
     value: float
 class ObservationData(BaseModel):
     burialDepth: float
@@ -59,25 +43,16 @@ class ObservationData(BaseModel):
 class ObservationDataMoho(BaseModel):
     value: float
     observationError: float
-class Type4(Enum):
-    class_ = 'class'
-    vsh = 'vsh'
-    cube = 'cube'
-
 
 class FaciesMapping(BaseModel):
     lithologyValue: str
     mapValue: int
 
 
-class Type5(Enum):
-    class_ = 'class'
-
-
 class Sedimentsproperties(BaseModel):
     faciesMappings: List[FaciesMapping]
     faciesMap: str
-    type: Type5
+    type: Literal["class"]
 
 
 class VshStackItem(BaseModel):
@@ -86,31 +61,24 @@ class VshStackItem(BaseModel):
     vshMap: str
 
 
-class Type6(Enum):
-    vsh = 'vsh'
-
 
 class Sedimentsproperties1(BaseModel):
     vshStack: List[VshStackItem]
-    type: Type6
-
-
-class Type7(Enum):
-    cube = 'cube'
+    type: Literal["vsh"]
 
 
 class Sedimentsproperties2(BaseModel):
     lithologyValue_1: str
     lithologyValue_0: str
     lithCube: str
-    type: Type7
+    type: Literal["cube"]
 
 class GeomintFullSedimentaryModel(BaseModel):
     class Config:
         extra = Extra.allow
 
     name: str
-    type: Type4
+    type: Literal['type','class','vsh']
     sedimentsproperties: Union[
         Sedimentsproperties, Sedimentsproperties1, Sedimentsproperties2
     ]
@@ -121,66 +89,26 @@ class SourceRock(BaseModel):
     tocInitial: Union[float, str]
     kinetics: str
     name: str
-class SourceRockPos(Enum):
-    top = 'top'
-    middle = 'middle'
-    base = 'base'
+
 class FrameworkMapping(BaseModel):
-    sourceRockPos: Optional[SourceRockPos] = None
+    sourceRockPos: Optional[Literal['top','middle','base']] = None
     sourceRock: Optional[SourceRock] = None
     sedimentaryModel: GeomintFullSedimentaryModel
     age: float
-class LithosphereThickness(BaseModel):
-    __root__: confloat(ge=5000.0, le=200000.0)
-
-
-class LithosphereThickness1(BaseModel):
-    __root__: str
-
-
-class CrustalThickness(BaseModel):
-    __root__: confloat(ge=5000.0, le=80000.0)
-
-
-class CrustalThickness1(BaseModel):
-    __root__: str
 
 
 class InitialCondition(BaseModel):
-    lithosphereThickness: Union[LithosphereThickness, LithosphereThickness1]
-    crustalThickness: Union[CrustalThickness, CrustalThickness1]
+    lithosphereThickness: confloat(ge=5000.0, le=200000.0)
+    crustalThickness: confloat(ge=5000.0, le=80000.0)
 
-
-class CrustConductivity(BaseModel):
-    __root__: confloat(ge=1.0, le=3.0)
-
-
-class CrustConductivity1(BaseModel):
-    __root__: str
-
-
-class CrustRHP(BaseModel):
-    __root__: confloat(ge=0.0, le=3.0)
-
-
-class CrustRHP1(BaseModel):
-    __root__: str
-
-
-class CrustDensity(BaseModel):
-    __root__: confloat(ge=2000.0, le=4000.0)
-
-
-class CrustDensity1(BaseModel):
-    __root__: str
 
 
 class LithosphereProperties(BaseModel):
     lithosphericMantleConductivity: confloat(ge=1.0, le=3.0)
     lithosphericMantleDensity: confloat(ge=2000.0, le=5000.0)
-    crustConductivity: Union[CrustConductivity, CrustConductivity1]
-    crustRHP: Union[CrustRHP, CrustRHP1]
-    crustDensity: Union[CrustDensity, CrustDensity1]
+    crustConductivity: confloat(ge=1.0, le=3.0)
+    crustRHP: confloat(ge=0.0, le=3.0)
+    crustDensity: confloat(ge=2000.0, le=4000.0)
 
 
 class RiftEvent(BaseModel):
@@ -199,14 +127,10 @@ class TectonicModel(BaseModel):
     domains: List[Domain]
     name: str
 
-class Conformity(Enum):
-    conformable = 'conformable'
-    erosion = 'erosion'
-
 
 class Geometry(BaseModel):
     top_depth_map: str
-    conformity: Optional[Conformity] = None
+    conformity: Optional[Literal['conformable','erosion']] = None
     age: float
     name: str
 
