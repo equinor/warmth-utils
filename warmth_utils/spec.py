@@ -1,6 +1,6 @@
 
 from enum import Enum
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Tuple, Union
 from pydantic import BaseModel, Extra, confloat
 class GeomintsPolygon(BaseModel):
     __root__: List[List[float]]
@@ -223,6 +223,8 @@ class Model(BaseModel):
     name: str
     version: float
     id: str
+    aoi: list[Tuple[float, float]]
+
 class FieldXNumberYNumberBias63NumberTemperature63ObservationDataArrayVitrinite63ObservationDataArrayCrustalThickness6358ValueNumberObservationErrorNumber(
     BaseModel
 ):
