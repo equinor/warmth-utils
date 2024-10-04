@@ -2171,13 +2171,13 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pyetp"
-version = "0.0.24"
+version = "0.0.25"
 description = "Interface with OSDU RDDMS using ETP protocol"
 optional = false
 python-versions = "<3.12,>=3.9"
 files = [
-    {file = "pyetp-0.0.24-py3-none-any.whl", hash = "sha256:45ccd46e07e2b105fafc015c19e182554837a203c300634b3129313a008fe527"},
-    {file = "pyetp-0.0.24.tar.gz", hash = "sha256:8a049c5fe2f7f7d9dacb4694256214dd80d303559d9dfc07f6a890a28896580e"},
+    {file = "pyetp-0.0.25-py3-none-any.whl", hash = "sha256:ced6d7aa662f4ef53566520028b5d29926ac8c9f3dcf3bef7795db59ef60c47f"},
+    {file = "pyetp-0.0.25.tar.gz", hash = "sha256:826370ad14960faa86159ad45aa4c867b86b63824d1d312dbb5f0c371112a6b6"},
 ]
 
 [package.dependencies]
@@ -2639,13 +2639,13 @@ files = [
 
 [[package]]
 name = "tomli"
-version = "2.0.1"
+version = "2.0.2"
 description = "A lil' TOML parser"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
-    {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
+    {file = "tomli-2.0.2-py3-none-any.whl", hash = "sha256:2ebe24485c53d303f690b0ec092806a085f07af5a5aa1464f3931eec36caaa38"},
+    {file = "tomli-2.0.2.tar.gz", hash = "sha256:d46d457a85337051c36524bc5349dd91b1877838e2979ac5ced3e710ed8a60ed"},
 ]
 
 [[package]]
@@ -2909,4 +2909,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "8107763c05a7d2468950f4950288585300397238ff8016b8ba4c235ceb55f7ac"
+content-hash = "5a140feb9977070748dd32b662c47ea1f66ca3c373468537f1650f95d01261ca"
