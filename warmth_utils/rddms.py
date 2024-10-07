@@ -6,7 +6,7 @@ from pathlib import Path
 import pyetp.resqml_objects as ro
 from pyetp.types import DataArrayIdentifier
 from resqpy.property.property_collection import PropertyCollection
-from typing import Tuple
+from typing import Literal, Tuple
 import resqpy.property as rqp
 import resqpy.model as rq
 import resqpy.unstructured as rug
@@ -21,6 +21,12 @@ import typing
 from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
 
+async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
+    epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
+    gri_url =  [i for i in rddms if "Grid2dRepresentation" in i][0]
+    async with connect(msal_token()) as client:
+        v = await client.get_surface_value_x_y(epc_url, gri_url, x,y,sampling)
+    return v
 
 async def download_map(epc_uri, gri_uri, save_path:str):
     async with connect(msal_token()) as client:
