@@ -47,8 +47,21 @@ def get_mesh_manifest(sim_id:str):
         mesh_id = r["results"][0]["id"]
     return get_obj(mesh_id)
 
+def get_simulation_id(model_id: str, version: int) -> str:
+    max_count = 10
+    count = 0
+    while count < max_count:
+        r = _get_sim_id(model_id,version)
+        if len(r) == 0:
+            logging.info("Retrying to find sim id")
+            time.sleep(5)
+            count +=1
+        else:
+            logging.info(f"Found sim id {r[0]['id']}")
+            return r[0]["id"]
+    raise Exception(f"Failed to find sim id for {model_id}:{version}")
 
-def get_simulation_id(model_id:str, version:int)-> str:
+def _get_sim_id(model_id:str, version:int)-> list:
     model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{int(version)}"
     query = f'(tags.geomintType:simulation) AND (data.LineageAssertions.ID:{model_obj_osdu_id})'
     uri = f"{config.OSDUHOST}/api/search/v2/query"
@@ -72,7 +85,7 @@ def get_simulation_id(model_id:str, version:int)-> str:
         logging.error(f"Failed getting simulation id {r.text}")
         raise e
     r = r.json()
-    return r["results"][0]["id"]
+    return r["results"]
 
 def get_obj(obj_id:str):
     uri = f"{config.OSDUHOST}/api/storage/v2/records/{obj_id}"
