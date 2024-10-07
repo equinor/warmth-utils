@@ -190,6 +190,7 @@ class GeomintFullModel(BaseModel):
     maps: List[Map]
     pauseAfterCalibration: Optional[bool] = None
     observations: Optional[Dict[str,WellboreObservations]] = None
+    uwi: Optional[str] = None
 
 
 
