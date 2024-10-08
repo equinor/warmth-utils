@@ -21,8 +21,7 @@ import typing
 from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
 
-# Supress transmissivity warning
-logging.getLogger("resqpy.property._collection_add_part").setLevel(logging.ERROR)
+
 
 async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
     epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
@@ -61,6 +60,8 @@ async def get_resqml_object(url):
         rddms_out = await client.get_data_objects(url)
         return rddms_out
 def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.ContinuousProperty | ro.DiscreteProperty, source_info: str):
+    # Supress transmissivity warning
+    logging.getLogger("resqpy.property._collection_add_part").setLevel(logging.ERROR)
     # nodes0 = nodes.copy()
     if isinstance(props, ro.DiscreteProperty):
         discrete = True

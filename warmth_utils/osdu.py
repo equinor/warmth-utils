@@ -140,6 +140,7 @@ def get_file_uploadURL():
 #)
 
 def upload_file(SignedURL: str, filepath:str| Path):
+    logging.getLogger("azure.storage.blob").setLevel(logging.WARNING)
     blob_service_client = BlobClient.from_blob_url(SignedURL)
     with open(filepath, "rb") as f:
         blob_service_client.upload_blob(data=f,overwrite=True)
