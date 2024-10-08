@@ -21,6 +21,9 @@ import typing
 from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
 
+# Supress transmissivity warning
+logging.getLogger("resqpy.property._collection_add_part").setLevel(logging.ERROR)
+
 async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
     epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
     gri_url =  [i for i in rddms if "Grid2dRepresentation" in i][0]
