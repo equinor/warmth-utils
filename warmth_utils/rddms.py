@@ -118,7 +118,6 @@ def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.Continuo
     return
 async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_years_original:list[int],props: list[str], shape):
     points = np.zeros(shape)
-    total_download = len(input_horizons_ages)
     count = 0
     for props_index in range(len(props)):
         url_points = props[props_index]
@@ -133,7 +132,6 @@ async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_y
         points[index_in_new_gts] = arr
         count += 1
         logging.info(f"fetch {props1.citation.title} progress {count}/{points.shape[0]} ")
-    assert count == total_download
     return points, props1
 
 async def fetch_and_save_timeseries_data(epc:str, input_horizons_ages:list[int],times_in_years_original:list[int],pc, gts, uri: list[str], source_info: str, data_shape: Tuple[int, int]):
