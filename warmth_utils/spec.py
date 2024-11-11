@@ -90,12 +90,21 @@ class SourceRock(BaseModel):
     kinetics: str
     name: str
 
+class Erosion(BaseModel):
+    map: str
+    duration: Union[float, int]
+
+class Salt(BaseModel):
+    age: int
+    map:str
+    
 class FrameworkMapping(BaseModel):
     sourceRockPos: Optional[Literal['top','middle','base']] = None
     sourceRock: Optional[SourceRock] = None
     sedimentaryModel: GeomintFullSedimentaryModel
     age: float
-
+    erosion: Optional[Erosion]
+    saltTectonics: Optional[List[Salt]]
 
 class InitialCondition(BaseModel):
     lithosphereThickness: confloat(ge=5000.0, le=200000.0)
