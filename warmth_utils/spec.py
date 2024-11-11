@@ -52,7 +52,7 @@ class FaciesMapping(BaseModel):
 class Sedimentsproperties(BaseModel):
     faciesMappings: List[FaciesMapping]
     faciesMap: str
-    type: Literal["class"]
+    type: Optional[Literal["class"]]
 
 
 class VshStackItem(BaseModel):
@@ -64,14 +64,9 @@ class VshStackItem(BaseModel):
 
 class Sedimentsproperties1(BaseModel):
     vshStack: List[VshStackItem]
-    type: Literal["vsh"]
+    type: Optional[Literal["vsh"]]
 
 
-class Sedimentsproperties2(BaseModel):
-    lithologyValue_1: str
-    lithologyValue_0: str
-    lithCube: str
-    type: Literal["cube"]
 
 class GeomintFullSedimentaryModel(BaseModel):
     class Config:
@@ -80,7 +75,7 @@ class GeomintFullSedimentaryModel(BaseModel):
     name: str
     type: Literal['type','class','vsh']
     sedimentsproperties: Union[
-        Sedimentsproperties, Sedimentsproperties1, Sedimentsproperties2
+        Sedimentsproperties, Sedimentsproperties1
     ]
 class SourceRock(BaseModel):
     sedimentsproperties: Optional[GeomintFullSedimentaryModel] = None
