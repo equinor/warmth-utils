@@ -39,7 +39,7 @@ async def download_map(epc_uri, gri_uri, save_path:str):
     
 async def put_resqml_objects(obj: ro.AbstractObject):
     async with connect(msal_token()) as client:
-        rddms_out = await client.put_resqml_objects(obj, dataspace=config.RDDMSDataspace)
+        rddms_out = await client.put_resqml_objects(obj, dataspace=config.RDDMSDATASPACE)
         return rddms_out
 
 async def put_data_array(cprop0: ro.AbstractObject, data: np.ndarray, url_epc: typing.Union[DataspaceURI,str]):

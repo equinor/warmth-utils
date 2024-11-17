@@ -6,7 +6,7 @@ import requests
 import pyetp.resqml_objects as ro
 from warmth_utils.config import config
 from warmth_utils.auth import msal_token
-
+from warmth_utils.geomint import model_spec
 
 
 def searchMesh(sim_id:str):
@@ -176,8 +176,8 @@ def add_migriResults_to_mesh_manifest(fileObjId:str, existingMeshObj:dict, resul
     existingMeshObj["data"]["Datasets"]= [fileObjId]
     return overwrite_mesh_obj(existingMeshObj)
 
-def upload_migri_results(model_id: str,model_version:int, filepath: str| Path, result_maps: dict):
-    sim_id = get_simulation_id(model_id, model_version)
+def upload_migri_results(filepath: str| Path, result_maps: dict):
+    sim_id = get_simulation_id(model_spec.model.id, model_spec.model.version)
     signedURL = get_file_uploadURL()
     upload_file(signedURL["Location"]["SignedURL"], filepath)
     meshObj = get_mesh_manifest(sim_id)
