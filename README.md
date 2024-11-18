@@ -43,7 +43,7 @@ mesh_path = str(mesh_path) # as string
 ```python
 from warmth_utils.rddms import connect
 import xtgeo
-import asynio
+import asyncio
 async def upload_maps(surf):
     async with connect(msal_token()) as client:
         uris = await client.put_xtgeo_surface(surf, 23031)
