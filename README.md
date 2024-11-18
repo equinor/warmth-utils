@@ -42,13 +42,14 @@ mesh_path = str(mesh_path) # as string
 # Upload Migris result maps
 ```python
 from warmth_utils.rddms import connect
+from warmth_utils.auth import msal_token
 import xtgeo
 import asyncio
 async def upload_maps(surf):
     async with connect(msal_token()) as client:
         uris = await client.put_xtgeo_surface(surf, 23031)
     return list(map(lambda u: u.raw_uri, uris))
-surf = xtgeo.surface_from_file(fn, fformat="irap_binary")
+surf = xtgeo.surface_from_file(<FILEPATH>, fformat="irap_binary")
 r = asyncio.run(upload_maps(surf))
 ```
 
