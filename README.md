@@ -33,7 +33,7 @@ asyncio.run(download_map(epc, crs, gri, str(filepath)))
 
 # Download epc mesh
 ```python
-from warmth_utils.rddsm import download_epc
+from warmth_utils.rddms import download_epc
 import asyncio
 mesh_path = asyncio.run(download_epc())
 mesh_path = str(mesh_path) # as string
