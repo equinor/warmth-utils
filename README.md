@@ -28,7 +28,7 @@ epc = "eml:///dataspace('psscloud/Dev')/eml20.EpcExternalPartReference(004fa1b4-
 crs = "eml:///dataspace('psscloud/Dev')/resqml20.LocalDepth3dCrs(96605b7a-5f14-4de8-9548-c59887d8964c)"
 gri = "eml:///dataspace('psscloud/Dev')/resqml20.Grid2dRepresentation(ccc012b4-d095-4c39-9c9a-18f8ecfbc92e)"
 filepath = CACHE_DIR / <FILENAME>
-asyncio.run(download_map(epc, crs, gri, str(filepath)))
+asyncio.run(download_map(epc, gri, str(filepath)))
 ```
 
 # Download epc mesh
