@@ -16,6 +16,7 @@ class UTIL_SETTINGS(BaseSettings):
     OSDUPARTITION: str
     OSDURESOURCEID:UUID4
     N_THREADS: int = 4
+    AUTH_MODE: str = "Azure"
     
     
     

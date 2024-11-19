@@ -65,5 +65,16 @@ with open(result_maps_metadata_path, "r") as f:
 upload_migri_results(<PATH_TO_MIGRI_PROJECT_FILE>, result_maps_metadata)
 ```
 
+# AUTH MODE TO RDDMS
+```python
+# No auth
+from warmth_utils.config import config
+config.AUTH_MODE = ""
+
+# Azure (default)
+from warmth_utils.config import config
+config.AUTH_MODE = "Azure"
+```
+
 ###
 poetry run datamodel-codegen  --input ./warmth_utils/swagger.json --input-file-type openapi --output ./warmth_utils/datamodels
