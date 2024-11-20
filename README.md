@@ -69,7 +69,7 @@ upload_migri_results(<PATH_TO_MIGRI_PROJECT_FILE>, result_maps_metadata)
 ```python
 # No auth
 from warmth_utils.config import config
-config.AUTH_MODE = ""
+config.AUTH_MODE = "None"
 
 # Azure (default)
 from warmth_utils.config import config
