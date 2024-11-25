@@ -10,6 +10,7 @@ with open(MODEL_SPEC, 'r') as f:
     
 pts = []
 for p in model_spec.model.aoi:
+    p = list(p)
     p.extend([0, 1])
     pts.append(p)
 model_xtgeo_polygon = xtgeo.Polygons(pts)
