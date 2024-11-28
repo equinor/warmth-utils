@@ -40,6 +40,7 @@ class ObservationData(BaseModel):
     burialDepth: float
     value: float
     observationError: float
+    remark: Optional[str]
 class ObservationDataMoho(BaseModel):
     value: float
     observationError: float
