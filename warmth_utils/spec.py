@@ -149,7 +149,7 @@ class Model(BaseModel):
     tectonicModel: TectonicModel
     framework: Framework
     name: str
-    version: float
+    version: int
     id: str
     aoi: list[Tuple[float, float]]
     inc: Optional[int] = None

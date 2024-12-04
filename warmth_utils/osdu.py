@@ -48,9 +48,10 @@ def get_mesh_manifest(sim_id:str):
     return get_obj(mesh_id)
 
 def get_simulation_id(model_id: str, version: int) -> str:
+    if isinstance(model_spec.simId, str):
+        return model_spec.simId
     max_count = 10
     count = 0
-    version = int(version)
     while count < max_count:
         r = _get_sim_id(model_id,version)
         if len(r) == 0:
