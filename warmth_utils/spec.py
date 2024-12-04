@@ -196,6 +196,7 @@ class GeomintFullModel(BaseModel):
     pauseAfterCalibration: Optional[bool] = None
     observations: Optional[Dict[str,WellboreObservations]] = None
     uwi: Optional[str] = None
+    simId: Optional[str] = None
 
 
 
