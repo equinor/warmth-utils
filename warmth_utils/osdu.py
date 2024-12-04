@@ -50,6 +50,7 @@ def get_mesh_manifest(sim_id:str):
 def get_simulation_id(model_id: str, version: int) -> str:
     max_count = 10
     count = 0
+    version = int(version)
     while count < max_count:
         r = _get_sim_id(model_id,version)
         if len(r) == 0:
@@ -62,7 +63,8 @@ def get_simulation_id(model_id: str, version: int) -> str:
     raise Exception(f"Failed to find sim id for {model_id}:{version}")
 
 def _get_sim_id(model_id:str, version:int)-> list:
-    model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{int(version)}"
+    version = int(version)
+    model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{version}"
     query = f'(tags.geomintType:simulation) AND (data.LineageAssertions.ID:{model_obj_osdu_id})'
     uri = f"{config.OSDUHOST}/api/search/v2/query"
     data = {
