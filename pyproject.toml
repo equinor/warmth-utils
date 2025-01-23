@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
 msal = "^1.31.0"
-pyetp = "^0.0.25"
+pyetp = "^0.0.27"
 azure-storage-blob = "^12.23.0"
 xmltodict = "^0.13.0"
 resqpy = "^4.17.0"
