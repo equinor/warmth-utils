@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9,<3.12"
 msal = "^1.31.0"
-pyetp = { git = "https://github.com/equinor/pyetp.git", branch = "mesh_upload_in_parts" }
+pyetp = { git = "https://github.com/equinor/pyetp.git", branch = "faster-epc-mesh-file-upload" }
 azure-storage-blob = "^12.23.0"
 xmltodict = "^0.13.0"
 resqpy = "^4.17.0"
