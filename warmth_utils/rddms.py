@@ -102,6 +102,7 @@ def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.Continuo
             kw = source_info
             uom = 'percent'
             property_kind = 'dimensionless'
+        print("source info", source_info)
         for time_index in range(data.shape[0]-1, -1, -1):  # oldest first
             # last index in resqml is youngest
 
