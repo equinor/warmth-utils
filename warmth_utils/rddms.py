@@ -102,7 +102,6 @@ def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.Continuo
             kw = source_info
             uom = 'percent'
             property_kind = 'dimensionless'
-        print("source info", source_info)
         for time_index in range(data.shape[0]-1, -1, -1):  # oldest first
             # last index in resqml is youngest
 
@@ -132,7 +131,8 @@ async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_y
         arr = await get_mesh_prop_array( epc, props1)
         points[index_in_new_gts] = arr
         count += 1
-        logging.info(f"fetch {props1.citation.title} progress {count}/{points.shape[0]} ")
+        logging.debug(f"fetch {props1.citation.title} progress {count}/{points.shape[0]} ")
+    logging.info(f"fetched {props1.citation.title} for all {points.shape[0]} timesteps")
     return points, props1
 
 async def fetch_and_save_timeseries_data(epc:str, input_horizons_ages:list[int],times_in_years_original:list[int],pc, gts, uri: list[str], source_info: str, data_shape: Tuple[int, int]):
@@ -329,7 +329,7 @@ async def download_epc():
 
     # time series
     timeseries_object = await get_resqml_object(mesh_ts)
-    logging.info("Got timeseries object")
+    logging.debug("Got timeseries object")
     timeseries_object = xmltodict.parse(timeseries_object[0].data)
     times_in_years_original = [int(
         i["ns0:YearOffset"]) for i in timeseries_object["ns0:TimeSeries"]["ns0:Time"]]
@@ -342,7 +342,7 @@ async def download_epc():
     # create an empty HexaGrid
     async with connect(msal_token()) as client:
         uns, = await client.get_resqml_objects(mesh_uns)
-    logging.info("Got uns object")
+    logging.debug("Got uns object")
     async with connect(msal_token()) as client:
         points = await client.get_array(
             DataArrayIdentifier(
@@ -350,28 +350,28 @@ async def download_epc():
             )
         )
     assert points.shape[0] == uns.geometry.node_count
-    logging.info("Got points")
+    logging.debug("Got points")
     async with connect(msal_token()) as client:
         nodes_per_face = await client.get_array(
             DataArrayIdentifier(
                 uri=str(mesh_epc), pathInResource=uns.geometry.nodes_per_face.elements.values.path_in_hdf_file
             )
         )
-    logging.info("Got nodes per face")
+    logging.debug("Got nodes per face")
     async with connect(msal_token()) as client:
         faces_per_cell = await client.get_array(
             DataArrayIdentifier(
                 uri=str(mesh_epc), pathInResource=uns.geometry.faces_per_cell.elements.values.path_in_hdf_file
             )
         )
-    logging.info("Got face per cell")
+    logging.debug("Got face per cell")
     async with connect(msal_token()) as client:
         cell_face_is_right_handed = await client.get_array(
             DataArrayIdentifier(
                 uri=str(mesh_epc), pathInResource=uns.geometry.cell_face_is_right_handed.values.path_in_hdf_file
             )
         )
-    logging.info("Got cell faces right handed")
+    logging.debug("Got cell faces right handed")
     #uns, points, nodes_per_face, faces_per_cell, cell_face_is_right_handed = await get_mesh_points(mesh_epc, mesh_uns)
     logging.info("Got all mesh data")
     num_time_indices = len(input_horizons_ages)
