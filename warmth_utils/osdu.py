@@ -160,7 +160,12 @@ def put_file_manifest(meshObj: dict, fileSource: str) -> str:
                 "FileSourceInfo":{
                     "FileSource":fileSource,
                 }
-            }
+            },
+            "TechnicalAssurances": [
+                    {
+                        "TechnicalAssuranceTypeID": f"{config.OSDUPARTITION}:reference-data--TechnicalAssuranceType:Unevaluated:"
+                    }
+                ]
         },
         "acl":meshObj["acl"],
         "tags": {"geomintType": "migri"}
