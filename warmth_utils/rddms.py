@@ -25,7 +25,8 @@ from pyetp.uri import DataObjectURI, DataspaceURI
 
 def dataspace_uri() -> DataspaceURI:
     sim_id = get_simulation_id()
-    return DataspaceURI.from_name(f"{config.SIMULATIONDATASPACEPREFIX}/{sim_id}")
+    sim_id_short = sim_id.split(":")[-1]
+    return DataspaceURI.from_name(f"{config.SIMULATIONDATASPACEPREFIX}/{sim_id_short}")
 
 async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
     epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
