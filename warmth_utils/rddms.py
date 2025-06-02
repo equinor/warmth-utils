@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import time
+from uuid import UUID
 import numpy as np
 from pathlib import Path
 import pyetp.resqml_objects as ro
@@ -22,6 +23,9 @@ from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
 
 
+def dataspace_uri() -> DataspaceURI:
+    sim_id = get_simulation_id()
+    return DataspaceURI.from_name(f"{config.SIMULATIONDATASPACEPREFIX}/{sim_id}")
 
 async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
     epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
@@ -37,9 +41,11 @@ async def download_map(epc_uri, gri_uri, save_path:str):
         surf.to_file(save_path)
         return
     
+
 async def put_resqml_objects(obj: ro.AbstractObject):
+    ds_uri = dataspace_uri()
     async with connect(msal_token()) as client:
-        rddms_out = await client.put_resqml_objects(obj, dataspace=config.RDDMSDATASPACE)
+        rddms_out = await client.put_resqml_objects(obj, dataspace_uri=ds_uri)
         return rddms_out
 
 async def put_data_array(cprop0: ro.AbstractObject, data: np.ndarray, url_epc: typing.Union[DataspaceURI,str]):
@@ -309,8 +315,9 @@ async def get_mesh_arr_metadata(epc_uri, prop_uri):
                 )
             return await client.get_array_metadata(uid)
 
+
 async def download_epc():
-    sim_id = get_simulation_id(model_spec.model.id, model_spec.model.version)
+    sim_id = get_simulation_id()
     mesh_dict = get_mesh_spec(sim_id)
 
 
@@ -446,13 +453,13 @@ async def download_epc():
     model.store_epc()
 
     # TEST READ LOCAL FILE
-    m = rq.Model(str(MESH_PATH))
-    assert m is not None
-    ts_uuid_2 = m.uuid(obj_type='GeologicTimeSeries')
-    uuids = m.uuids(obj_type='ContinuousProperty')
-    prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
-    uuids = m.uuids(obj_type='DiscreteProperty')
-    prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
+    # m = rq.Model(str(MESH_PATH))
+    # assert m is not None
+    # ts_uuid_2 = m.uuid(obj_type='GeologicTimeSeries')
+    # uuids = m.uuids(obj_type='ContinuousProperty')
+    # prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
+    # uuids = m.uuids(obj_type='DiscreteProperty')
+    # prop_titles = [rqp.Property(m, uuid=u).title for u in uuids]
     return MESH_PATH
 
 

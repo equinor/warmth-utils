@@ -47,21 +47,22 @@ def get_mesh_manifest(sim_id:str):
         mesh_id = r["results"][0]["id"]
     return get_obj(mesh_id)
 
-def get_simulation_id(model_id: str, version: int) -> str:
-    if isinstance(model_spec.simId, str):
-        return model_spec.simId
-    max_count = 10
-    count = 0
-    while count < max_count:
-        r = _get_sim_id(model_id,version)
-        if len(r) == 0:
-            logging.info("Retrying to find sim id")
-            time.sleep(5)
-            count +=1
-        else:
-            logging.info(f"Found sim id {r[0]['id']}")
-            return r[0]["id"]
-    raise Exception(f"Failed to find sim id for {model_id}:{version}")
+def get_simulation_id() -> str:
+    return model_spec.simId
+    # if isinstance(model_spec.simId, str):
+    #     return model_spec.simId
+    # max_count = 10
+    # count = 0
+    # while count < max_count:
+    #     r = _get_sim_id(model_id,version)
+    #     if len(r) == 0:
+    #         logging.info("Retrying to find sim id")
+    #         time.sleep(5)
+    #         count +=1
+    #     else:
+    #         logging.info(f"Found sim id {r[0]['id']}")
+    #         return r[0]["id"]
+    # raise Exception(f"Failed to find sim id for {model_id}:{version}")
 
 def _get_sim_id(model_id:str, version:int)-> list:
     version = int(version)
@@ -185,7 +186,7 @@ def add_migriResults_to_mesh_manifest(fileObjId:str, existingMeshObj:dict, resul
     return overwrite_mesh_obj(existingMeshObj)
 
 def upload_migri_results(filepath: str| Path, result_maps: dict):
-    sim_id = get_simulation_id(model_spec.model.id, model_spec.model.version)
+    sim_id = get_simulation_id()
     signedURL = get_file_uploadURL()
     upload_file(signedURL["Location"]["SignedURL"], filepath)
     meshObj = get_mesh_manifest(sim_id)

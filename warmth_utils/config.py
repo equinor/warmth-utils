@@ -9,17 +9,14 @@ class UTIL_SETTINGS(BaseSettings):
     CLIENT_SECRET: str
     TENANT_ID: UUID4
     CACHEDIR: str = "./"
+    SIMULATIONDATASPACEPREFIX: str = "BASIN/SIMULATION"
     MODELSPEC:str
     RDDMSURL: str
-    RDDMSDATASPACE: str
     OSDUHOST: str
     OSDUPARTITION: str
     OSDURESOURCEID:UUID4
     N_THREADS: int = 4
     AUTH_MODE: str = "Azure"
-    
-    
-    
     ACTIVITYMODELVERSION: str = "1.0.0"
     MESHMANIFESTVERSION:str = "1.1.0"
     FILEMANIFESTVERSION:str = "1.0.0"
@@ -33,7 +30,6 @@ MODEL_SPEC = Path(config.MODELSPEC)
 SETTINGS.etp_url= config.RDDMSURL
 SETTINGS.application_name = "geomint"
 SETTINGS.application_version = "0.0.1"
-SETTINGS.dataspace = config.RDDMSDATASPACE
 SETTINGS.data_partition = config.OSDUPARTITION
 pyetp_logger.setLevel(logging.WARNING)
 
