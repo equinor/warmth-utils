@@ -34,9 +34,9 @@ async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["line
         v = await client.get_surface_value_x_y(epc_url, gri_url, x,y,sampling)
     return v
 
-async def download_map(epc_uri, gri_uri, save_path:str):
+async def download_map(epc_uri, gri_uri, crs_uri, save_path:str):
     async with connect(msal_token()) as client:
-        surf = await client.get_xtgeo_surface(epc_uri,gri_uri)
+        surf = await client.get_xtgeo_surface(epc_uri,gri_uri,crs_uri)
         Path(save_path).parent.mkdir(parents=True, exist_ok=True)
         surf.to_file(save_path)
         return
