@@ -30,8 +30,9 @@ def dataspace_uri() -> DataspaceURI:
 async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["linear","nearest"])-> float:
     epc_url =  [i for i in rddms if "EpcExternalPartReference" in i][0]
     gri_url =  [i for i in rddms if "Grid2dRepresentation" in i][0]
+    crs_url =  [i for i in rddms if "LocalDepth3dCrs" in i]
     async with connect(msal_token()) as client:
-        v = await client.get_surface_value_x_y(epc_url, gri_url, x,y,sampling)
+        v = await client.get_surface_value_x_y(epc_url, gri_url, crs_url, x,y,sampling)
     return v
 
 async def download_map(epc_uri, gri_uri, crs_uri, save_path:str):
