@@ -64,32 +64,32 @@ def get_simulation_id() -> str:
     #         return r[0]["id"]
     # raise Exception(f"Failed to find sim id for {model_id}:{version}")
 
-def _get_sim_id(model_id:str, version:int)-> list:
-    version = int(version)
-    model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{version}"
-    query = f'(tags.geomintType:simulation) AND (data.LineageAssertions.ID:{model_obj_osdu_id})'
-    uri = f"{config.OSDUHOST}/api/search/v2/query"
-    data = {
-        "kind": f"osdu:wks:work-product-component--Activity:{config.ACTIVITYMODELVERSION}",
-        "query": query,
-        "returnedFields": ['id'],
-        "sort": {
-          "field": [
-            'createTime'
-          ],
-          "order": [
-            'DESC'
-          ]
-        }
-      }
-    r = requests.post(uri, headers= get_header(),json=data)
-    try:
-        r.raise_for_status()
-    except Exception as e:
-        logging.error(f"Failed getting simulation id {r.text}")
-        raise e
-    r = r.json()
-    return r["results"]
+# def _get_sim_id(model_id:str, version:int)-> list:
+#     version = int(version)
+#     model_obj_osdu_id = fr"{config.OSDUPARTITION}\:work-product-component--Activity\:{model_id}\:{version}"
+#     query = f'(tags.geomintType:simulation) AND (data.LineageAssertions.ID:{model_obj_osdu_id})'
+#     uri = f"{config.OSDUHOST}/api/search/v2/query"
+#     data = {
+#         "kind": f"osdu:wks:work-product-component--Activity:{config.ACTIVITYMODELVERSION}",
+#         "query": query,
+#         "returnedFields": ['id'],
+#         "sort": {
+#           "field": [
+#             'createTime'
+#           ],
+#           "order": [
+#             'DESC'
+#           ]
+#         }
+#       }
+#     r = requests.post(uri, headers= get_header(),json=data)
+#     try:
+#         r.raise_for_status()
+#     except Exception as e:
+#         logging.error(f"Failed getting simulation id {r.text}")
+#         raise e
+#     r = r.json()
+#     return r["results"]
 
 def get_obj(obj_id:str):
     uri = f"{config.OSDUHOST}/api/storage/v2/records/{obj_id}"

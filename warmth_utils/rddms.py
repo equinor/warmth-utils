@@ -67,6 +67,7 @@ async def get_resqml_object(url):
     async with connect(msal_token()) as client:
         rddms_out = await client.get_data_objects(url)
         return rddms_out
+    
 def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.ContinuousProperty | ro.DiscreteProperty, source_info: str):
     # Supress transmissivity warning
     logging.getLogger("resqpy.property._collection_add_part").setLevel(logging.ERROR)
@@ -124,6 +125,7 @@ def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.Continuo
                                                  indexable_element=str(props.indexable_element).split(".")[-1].lower())
     logging.info(f"Added timeseries data {props.citation.title} to model")
     return
+
 async def timeseries_prop_fetch(epc:str,input_horizons_ages:list[int],times_in_years_original:list[int],props: list[str], shape):
     points = np.zeros(shape)
     count = 0
