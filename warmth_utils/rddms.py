@@ -192,16 +192,23 @@ async def fetch_store_non_timeseries(resqpyModel: rq.Model,mesh_epc, data_url, h
     store_non_timeseries_data(resqpyModel,props1, hexa_uuid, values1)
     return
 async def timeseries_prop_nodes(props:list[str], mesh_epc, shape):
-    assert len(shape) == 2
+    assert len(shape) > 1 and len(shape) > 4
     points = np.full(shape, fill_value=np.nan)
     for url_points in props:
         props1, values1 = await get_mesh_property(mesh_epc, url_points)
         points[props1.time_index.index,:] = values1
-    x, y = np.indices(points.shape)
-    interp = np.array(points)
-    interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)]), 
-                                        points[~np.isnan(points)],
-                                        (x[np.isnan(points)], y[np.isnan(points)]))
+    if len(shape) == 2:
+        x, y = np.indices(points.shape)
+        interp = np.array(points)
+        interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)]), 
+                                            points[~np.isnan(points)],
+                                            (x[np.isnan(points)], y[np.isnan(points)]))
+    else:
+        x, y, z = np.indices(points.shape)
+        interp = np.array(points)
+        interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)], z[~np.isnan(points)]), 
+                                            points[~np.isnan(points)],
+                                            (x[np.isnan(points)], y[np.isnan(points)], z[np.isnan(points)]))
     return interp
 
 async def get_mesh_prop_array(epc_uri, cprop):
