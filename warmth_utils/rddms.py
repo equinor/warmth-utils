@@ -192,7 +192,7 @@ async def fetch_store_non_timeseries(resqpyModel: rq.Model,mesh_epc, data_url, h
     store_non_timeseries_data(resqpyModel,props1, hexa_uuid, values1)
     return
 async def timeseries_prop_nodes(props:list[str], mesh_epc, shape):
-    assert len(shape) > 1 and len(shape) > 4
+    assert len(shape) > 1 and len(shape) < 4
     points = np.full(shape, fill_value=np.nan)
     for url_points in props:
         props1, values1 = await get_mesh_property(mesh_epc, url_points)
