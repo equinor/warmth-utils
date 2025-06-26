@@ -3,6 +3,7 @@ import logging
 import time
 from uuid import UUID
 import numpy as np
+from scipy.interpolate import griddata
 from pathlib import Path
 import pyetp.resqml_objects as ro
 from pyetp.types import DataArrayIdentifier
@@ -191,12 +192,17 @@ async def fetch_store_non_timeseries(resqpyModel: rq.Model,mesh_epc, data_url, h
     store_non_timeseries_data(resqpyModel,props1, hexa_uuid, values1)
     return
 async def timeseries_prop_nodes(props:list[str], mesh_epc, shape):
-    points = np.zeros(shape)
-    for time_index in range(shape[0]):
-        url_points = props[time_index]
+    assert len(shape) == 2
+    points = np.full(shape, fill_value=np.nan)
+    for url_points in props:
         props1, values1 = await get_mesh_property(mesh_epc, url_points)
         points[props1.time_index.index,:] = values1
-    return points
+    x, y = np.indices(points.shape)
+    interp = np.array(points)
+    interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)]), 
+                                        points[~np.isnan(points)],
+                                        (x[np.isnan(points)], y[np.isnan(points)]))
+    return interp
 
 async def get_mesh_prop_array(epc_uri, cprop):
     sem = asyncio.Semaphore(config.N_THREADS)
