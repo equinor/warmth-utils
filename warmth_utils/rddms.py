@@ -191,25 +191,36 @@ async def fetch_store_non_timeseries(resqpyModel: rq.Model,mesh_epc, data_url, h
         values1 = parse_age(values1)
     store_non_timeseries_data(resqpyModel,props1, hexa_uuid, values1)
     return
+def fill_nan_interp1d(arr):
+    assert len(arr.shape) == 1
+    non_nan = ~np.isnan(arr)
+    xp = non_nan.ravel().nonzero()[0]
+    fp = arr[~np.isnan(arr)]
+    x  = np.isnan(arr).ravel().nonzero()[0]
+    arr[np.isnan(arr)] = np.interp(x, xp, fp)
+    return arr
+
 async def timeseries_prop_nodes(props:list[str], mesh_epc, shape):
     assert len(shape) > 1 and len(shape) < 4
-    points = np.full(shape, fill_value=np.nan)
-    for url_points in props:
+    buffer = np.full(shape, fill_value=np.nan)
+    async def populate(url_points):
         props1, values1 = await get_mesh_property(mesh_epc, url_points)
-        points[props1.time_index.index,:] = values1
-    if len(shape) == 2:
-        x, y = np.indices(points.shape)
-        interp = np.array(points)
-        interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)]), 
-                                            points[~np.isnan(points)],
-                                            (x[np.isnan(points)], y[np.isnan(points)]))
-    else:
-        x, y, z = np.indices(points.shape)
-        interp = np.array(points)
-        interp[np.isnan(interp)] = griddata((x[~np.isnan(points)], y[~np.isnan(points)], z[~np.isnan(points)]), 
-                                            points[~np.isnan(points)],
-                                            (x[np.isnan(points)], y[np.isnan(points)], z[np.isnan(points)]))
-    return interp
+        buffer[props1.time_index.index,:] = values1
+        return
+    await asyncio.gather(*[populate(url_points)for url_points in props])
+    if len(shape) == 2: # temperature
+        # first dimension is n_time, second is n_node # for temperature
+        for idx in range (buffer.shape[1]):
+            v = buffer[:, idx]
+            buffer[:, idx]  = fill_nan_interp1d(v)
+    else: # points
+        for idx in range (buffer.shape[1]):
+            arr = buffer[:,idx, :]
+            arr[:,:2] = arr[0,:2]
+            z_val = arr[:,-1]
+            arr[:,-1] = fill_nan_interp1d(z_val)
+            buffer[:,idx, :] = arr
+    return buffer
 
 async def get_mesh_prop_array(epc_uri, cprop):
     sem = asyncio.Semaphore(config.N_THREADS)
@@ -305,11 +316,9 @@ async def get_mesh_points(epc_uri, uns_uri):
 
 
 async def get_mesh_property(epc_uri, prop_uri):
-    sem = asyncio.Semaphore(config.N_THREADS)
-    async with sem:
-        async with connect(msal_token()) as client:
-            rddms_out = await client.get_epc_mesh_property(epc_uri, prop_uri)
-            return rddms_out
+    async with connect(msal_token()) as client:
+        rddms_out = await client.get_epc_mesh_property(epc_uri, prop_uri)
+        return rddms_out
         
 async def get_mesh_prop_meta(prop_uri):
     async with connect(msal_token()) as client:
@@ -317,20 +326,12 @@ async def get_mesh_prop_meta(prop_uri):
     return cprop0
 
 async def get_mesh_arr_metadata(epc_uri, prop_uri):
-    sem = asyncio.Semaphore(config.N_THREADS)
-    async with sem:
-        async with connect(msal_token()) as client:
-            cprop0, = await client.get_resqml_objects(prop_uri)
-
-            # some checks
-            assert isinstance(cprop0, ro.ContinuousProperty) or isinstance(cprop0, ro.DiscreteProperty), "prop must be a Property"
-            assert len(cprop0.patch_of_values) == 1, "property obj must have exactly one patch of values"
-
-            # # get array
-            uid = DataArrayIdentifier(
-                    uri=str(epc_uri), pathInResource=cprop0.patch_of_values[0].values.values.path_in_hdf_file,
-                )
-            return await client.get_array_metadata(uid)
+    async with connect(msal_token()) as client:
+        cprop0, = await client.get_resqml_objects(prop_uri)
+        uid = DataArrayIdentifier(
+                uri=str(epc_uri), pathInResource=cprop0.patch_of_values[0].values.values.path_in_hdf_file,
+            )
+        return await client.get_array_metadata(uid)
 
 
 async def download_epc():
