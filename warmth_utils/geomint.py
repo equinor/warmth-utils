@@ -24,7 +24,7 @@ rift_events = [i.riftEvents for i in model_spec.model.tectonicModel.domains]
 rift_ages = [age_ranges(j.end, j.start, 2)  for i in rift_events for j in i]
 
 output_ages = age_ranges(min(input_horizons_ages), max(input_horizons_ages), 5)
-
+output_ages.extend(input_horizons_ages)
 for i in rift_ages:
     output_ages.extend(i)
 
