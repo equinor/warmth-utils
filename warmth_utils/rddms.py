@@ -207,7 +207,12 @@ async def timeseries_prop_nodes(props:list[str], mesh_epc, shape):
         props1, values1 = await get_mesh_property(mesh_epc, url_points)
         buffer[props1.time_index.index,:] = values1
         return
-    await asyncio.gather(*[populate(url_points)for url_points in props])
+    count = 0
+    for url_points in props:
+        await populate(url_points)
+        count += 1
+        logging.info(f"Downloaded mesh properties {count}/{len(props)}")
+    #await asyncio.gather(*[populate(url_points)for url_points in props])
     if len(shape) == 2: # temperature
         # first dimension is n_time, second is n_node # for temperature
         for idx in range (buffer.shape[1]):
