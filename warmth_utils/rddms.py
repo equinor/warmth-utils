@@ -317,12 +317,16 @@ async def get_mesh_points(epc_uri, uns_uri):
 
 async def get_mesh_property(epc_uri, prop_uri):
     async with connect(msal_token()) as client:
+        t_id = await client.start_transaction(DataspaceURI.from_any(epc_uri), True)
         rddms_out = await client.get_epc_mesh_property(epc_uri, prop_uri)
+        await client.commit_transaction(t_id)
         return rddms_out
         
 async def get_mesh_prop_meta(prop_uri):
     async with connect(msal_token()) as client:
+        t_id = await client.start_transaction(DataspaceURI.from_any(prop_uri), True)
         cprop0, = await client.get_resqml_objects(prop_uri)
+        await client.commit_transaction(t_id)
     return cprop0
 
 async def get_mesh_arr_metadata(epc_uri, prop_uri):
