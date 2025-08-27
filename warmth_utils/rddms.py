@@ -48,13 +48,16 @@ async def download_map(epc_uri, gri_uri, crs_uri, save_path:str):
 async def put_resqml_objects(obj: ro.AbstractObject):
     ds_uri = dataspace_uri()
     async with connect(msal_token()) as client:
+        t_id = await client.start_transaction(ds_uri, False)
         rddms_out = await client.put_resqml_objects(obj, dataspace_uri=ds_uri)
+        await client.commit_transaction(t_id)
         return rddms_out
 
 async def put_data_array(cprop0: ro.AbstractObject, data: np.ndarray, url_epc: typing.Union[DataspaceURI,str]):
     assert isinstance(cprop0, ro.ContinuousProperty) or isinstance(cprop0, ro.DiscreteProperty), "prop must be a Property"
     assert len(cprop0.patch_of_values) == 1, "property obj must have exactly one patch of values"
     async with connect(msal_token()) as client:
+        t_id = await client.start_transaction(DataspaceURI.from_any(url_epc), False)
         response = await client.put_array(
             DataArrayIdentifier(
                 uri=url_epc.raw_uri if isinstance(url_epc, DataObjectURI) else url_epc,
@@ -62,11 +65,14 @@ async def put_data_array(cprop0: ro.AbstractObject, data: np.ndarray, url_epc: t
             ),
             data,  # type: ignore
         )
+        await client.commit_transaction(t_id)
         return response 
     
 async def get_resqml_object(url):
     async with connect(msal_token()) as client:
+        t_id = await client.start_transaction(url, True)
         rddms_out = await client.get_data_objects(url)
+        await client.commit_transaction(t_id)
         return rddms_out
     
 def store_time_series_data(pc: PropertyCollection, gts, data, props: ro.ContinuousProperty | ro.DiscreteProperty, source_info: str):
