@@ -70,7 +70,7 @@ async def put_data_array(cprop0: ro.AbstractObject, data: np.ndarray, url_epc: t
     
 async def get_resqml_object(url):
     async with connect(msal_token()) as client:
-        t_id = await client.start_transaction(url, True)
+        t_id = await client.start_transaction(DataspaceURI.from_any(url), True)
         rddms_out = await client.get_data_objects(url)
         await client.commit_transaction(t_id)
         return rddms_out
