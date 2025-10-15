@@ -78,3 +78,16 @@ config.AUTH_MODE = "Azure"
 
 ###
 poetry run datamodel-codegen  --input ./warmth_utils/swagger.json --input-file-type openapi --output ./warmth_utils/datamodels
+
+# Testing
+First, start the open-etp-server via:
+```bash
+docker compose -f tests/compose.yml up
+```
+Then, start a new terminal and run:
+```bash
+poetry run py.test
+```
+Note that the listed environment variables (described higher up) have to be set
+to some values that gets validated correctly. See `UTIL_SETTINGS` in
+[`warmth_utils/config.py`](warmth_utils/config.py) for types.

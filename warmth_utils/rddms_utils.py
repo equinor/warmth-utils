@@ -330,7 +330,7 @@ async def put_epc_mesh(
     )
 
     transaction_uuid = await etp_client.start_transaction(
-        dataspace_uri=dataspace_uri, read_only=False
+        dataspace_uri, False
     )
 
     epc_uri, crs_uri, uns_uri = await etp_client.put_resqml_objects(
@@ -444,7 +444,7 @@ async def put_epc_mesh(
             cprop_uris.extend(cprop_uri)
         prop_rddms_uris[propname] = [propkind_uri, cprop_uris]
 
-    await etp_client.commit_transaction(transaction_uuid=transaction_uuid)
+    await etp_client.commit_transaction(transaction_uuid)
 
     return [epc_uri, crs_uri, uns_uri, timeseries_uri], prop_rddms_uris
 
