@@ -15,14 +15,13 @@ import resqpy.unstructured as rug
 import resqpy.crs as rqc
 import resqpy.time_series as rts
 import xmltodict
-from warmth_utils.geomint import model_spec
+from warmth_utils.geomint import model_spec, output_ages
 from warmth_utils.osdu import get_mesh_spec, get_simulation_id
 from warmth_utils.config import config, MESH_PATH
 from warmth_utils.auth import msal_token
 import typing
 from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
-
 
 def dataspace_uri() -> DataspaceURI:
     sim_id = get_simulation_id()
@@ -352,10 +351,9 @@ async def get_mesh_arr_metadata(epc_uri, prop_uri):
 async def download_epc():
     sim_id = get_simulation_id()
     mesh_dict = get_mesh_spec(sim_id)
-
-
+    
     input_horizons_ages = [int(
-        i.age*-1e6) for i in reversed(model_spec.model.framework.geometries)]
+        i*-1e6) for i in reversed(output_ages)]
 
     mesh_uri = mesh_dict["mesh"]
     props_uri = mesh_dict["properties"]
