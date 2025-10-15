@@ -19,6 +19,7 @@ from warmth_utils.geomint import model_spec, output_ages
 from warmth_utils.osdu import get_mesh_spec, get_simulation_id
 from warmth_utils.config import config, MESH_PATH
 from warmth_utils.auth import msal_token
+from warmth_utils.rddms_utils import get_surface_value_x_y, get_epc_mesh_property
 import typing
 from pyetp import connect
 from pyetp.uri import DataObjectURI, DataspaceURI
@@ -33,7 +34,7 @@ async def get_map_value(rddms: list[str],x:float,y:float,sampling: Literal["line
     gri_url =  [i for i in rddms if "Grid2dRepresentation" in i][0]
     crs_url =  [i for i in rddms if "LocalDepth3dCrs" in i]
     async with connect(msal_token()) as client:
-        v = await client.get_surface_value_x_y(epc_url, gri_url, crs_url, x,y,sampling)
+        v = await get_surface_value_x_y(client, epc_url, gri_url, crs_url, x,y,sampling)
     return v
 
 async def download_map(epc_uri, gri_uri, crs_uri, save_path:str):
@@ -328,7 +329,7 @@ async def get_mesh_points(epc_uri, uns_uri):
 async def get_mesh_property(epc_uri, prop_uri):
     async with connect(msal_token()) as client:
         t_id = await client.start_transaction(DataspaceURI.from_any(epc_uri), True)
-        rddms_out = await client.get_epc_mesh_property(epc_uri, prop_uri)
+        rddms_out = await get_epc_mesh_property(client, epc_uri, prop_uri)
         await client.commit_transaction(t_id)
         return rddms_out
         
