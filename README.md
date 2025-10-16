@@ -86,8 +86,8 @@ docker compose -f tests/compose.yml up
 ```
 Then, start a new terminal and run:
 ```bash
-poetry run py.test
+CLIENT_ID='12345678-1234-4234-8234-123456789abc' CLIENT_SECRET='' TENANT_ID='12345678-1234-4234-8234-123456789abc' MODELSPEC='' RDDMSURL='' OSDUHOST='' OSDUPARTITION='' OSDURESOURCEID='12345678-1234-4234-8234-123456789abc' poetry run py.test
 ```
-Note that the listed environment variables (described higher up) have to be set
-to some values that gets validated correctly. See `UTIL_SETTINGS` in
-[`warmth_utils/config.py`](warmth_utils/config.py) for types.
+where the dummy environment variables are chosen such that they pass the
+validation of `UTIL_SETTINGS` in
+[`warmth_utils/config.py`](warmth_utils/config.py).
