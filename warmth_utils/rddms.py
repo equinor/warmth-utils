@@ -349,7 +349,7 @@ async def get_mesh_arr_metadata(epc_uri, prop_uri):
         return await client.get_array_metadata(uid)
 
 
-async def download_epc():
+async def download_epc(output_ages = output_ages):
     sim_id = get_simulation_id()
     mesh_dict = get_mesh_spec(sim_id)
     
