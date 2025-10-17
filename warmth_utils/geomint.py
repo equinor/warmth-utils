@@ -23,7 +23,7 @@ input_horizons_ages = [int(i.age) for i in model_spec.model.framework.geometries
 erosion_start_ages = []
 for i in model_spec.model.frameworkMappings:
     if isinstance(i.erosion, type(None)) is False:
-        erosion_start_ages.append(i.age + i.erosion.duration) # type: ignore
+        erosion_start_ages.append(int(i.age + i.erosion.duration)) # type: ignore
 
 
 
