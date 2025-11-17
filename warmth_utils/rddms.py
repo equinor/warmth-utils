@@ -478,6 +478,7 @@ async def download_epc(output_ages = output_ages):
     logging.getLogger("resqpy").setLevel(logging.WARNING) 
     non_timeseries_data = ["Porosity_decay", "LayerID", "Radiogenic_heat_production",
                            "Age", "Porosity_initial", "thermal_conductivity"]
+    non_timeseries_data = ["LayerID", "Age"]
     for i in non_timeseries_data:
         assert len(props_uri[i][1]) == 1
         await fetch_store_non_timeseries(model, mesh_epc, props_uri[i][1][0], hexa.uuid, i)
