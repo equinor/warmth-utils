@@ -197,6 +197,7 @@ class GeomintFullModel(BaseModel):
     observations: Optional[Dict[str,WellboreObservations]] = None
     uwi: Optional[str] = None
     simId: Optional[str] = None
+    maxNode: Optional[int] = None
 
 
 
