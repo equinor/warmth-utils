@@ -2544,21 +2544,21 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pyetp"
-version = "0.0.44"
+version = "0.0.45"
 description = "Interface with OSDU RDDMS using ETP protocol"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "pyetp-0.0.44-py3-none-any.whl", hash = "sha256:97d39dcb7e73a77c20a349fc3f157fc2d9f761692fe6eaf29fb09715aaf47fdb"},
-    {file = "pyetp-0.0.44.tar.gz", hash = "sha256:8962b79be1446f484557b2dad846d33df0033748db5b770fd69b55d31d02b418"},
+    {file = "pyetp-0.0.45-py3-none-any.whl", hash = "sha256:122ab4cd2a55bc66de22275c9367a4be2eb8ec46777f85af91715225523e6d63"},
+    {file = "pyetp-0.0.45.tar.gz", hash = "sha256:a59f135bad38999b072ab46d08d1ca2a4626b5b551a3d1a778790f2218b8a27a"},
 ]
 
 [package.dependencies]
 async-timeout = ">=5.0"
 etpproto = ">=1.0.7"
 lxml = ">=4.9.4"
-numpy = ">=2.0"
+numpy = ">=1.26.0"
 pydantic = ">=1.10"
 websockets = ">=15.0"
 xsdata = ">=25.4"
@@ -3537,4 +3537,4 @@ tests = ["coverage (>=4.1)", "mypy", "pylint", "pytest", "pytest-cov", "pytest-m
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "20a7597ac52410a91a7904484261c443a2885ffab39cd8960bb60adcd35e3b4f"
+content-hash = "24a2fee0fc8089e0d5136a03b53a1d7b18496e2abe4ee70873b5412f50eb25e9"
