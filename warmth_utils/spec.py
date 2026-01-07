@@ -109,10 +109,10 @@ class InitialCondition(BaseModel):
 
 
 class LithosphereProperties(BaseModel):
-    lithosphericMantleConductivity: confloat(ge=1.0, le=3.0)
+    lithosphericMantleConductivity: confloat(ge=1.0, le=6.0)
     lithosphericMantleDensity: confloat(ge=2000.0, le=5000.0)
-    crustConductivity: confloat(ge=1.0, le=3.0)
-    crustRHP: confloat(ge=0.0, le=3.0)
+    crustConductivity: confloat(ge=1.0, le=6.0)
+    crustRHP: confloat(ge=0.0, le=6.0)
     crustDensity: confloat(ge=2000.0, le=4000.0)
 
 
