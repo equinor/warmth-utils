@@ -14,7 +14,7 @@ class UTIL_SETTINGS(BaseSettings):
     RDDMSURL: str
     OSDUHOST: str
     OSDUPARTITION: str
-    OSDURESOURCEID:UUID4
+    OSDURESOURCEID: str
     N_THREADS: int = 4
     AUTH_MODE: str = "Azure"
     ACTIVITYMODELVERSION: str = "1.3.0"
