@@ -1,3 +1,4 @@
+from warmth_utils.osdu import get_obj
 import xtgeo
 from warmth_utils.spec import GeomintFullModel
 from warmth_utils.config import MODEL_SPEC
@@ -6,6 +7,9 @@ import json
 
 with open(MODEL_SPEC, 'r') as f:
     model_spec_dict = json.load(f)
+    sim_ID = model_spec_dict["simId"]
+    sim_obj = get_obj(sim_ID)
+    model_spec_dict.update(sim_obj["data"]["geomint"]["fullModel"]) 
     model_spec = GeomintFullModel.parse_obj(model_spec_dict)
     
 pts = []
