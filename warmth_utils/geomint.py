@@ -34,6 +34,7 @@ with open(MODEL_SPEC, 'r') as f:
         time.sleep(10)
         sim_obj = get_obj(sim_ID)
     model_spec_dict.update(sim_obj["data"]["geomint"]["fullModel"]) 
+    print(model_spec_dict)
     model_spec = GeomintFullModel.parse_obj(model_spec_dict)
     
 pts = []
