@@ -1,9 +1,28 @@
-from warmth_utils.osdu import get_obj
+
 import xtgeo
 from warmth_utils.spec import GeomintFullModel
-from warmth_utils.config import MODEL_SPEC
+from warmth_utils.config import MODEL_SPEC, config
 import json
+import logging
+from warmth_utils.auth import msal_token
+import requests
 
+def get_header()->dict:
+    return {
+        'Content-Type': 'application/json',
+        'data-partition-id': config.OSDUPARTITION,
+        "Authorization": msal_token()
+        }
+
+def get_obj(obj_id:str):
+    uri = f"{config.OSDUHOST}/api/storage/v2/records/{obj_id}"
+    r = requests.get(url=uri,headers=get_header())
+    try:
+        r.raise_for_status()
+    except Exception as e:
+        logging.error(f"Failed getting object manifest {r.text}")
+        raise e
+    return r.json()
 
 with open(MODEL_SPEC, 'r') as f:
     model_spec_dict = json.load(f)
