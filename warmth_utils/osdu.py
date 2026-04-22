@@ -3,7 +3,6 @@ from pathlib import Path
 from azure.storage.blob import BlobClient
 import time
 import requests
-import pyetp.resqml_objects as ro
 from warmth_utils.config import config
 from warmth_utils.auth import msal_token
 from warmth_utils.geomint import model_spec

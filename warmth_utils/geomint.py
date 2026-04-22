@@ -14,7 +14,7 @@ def get_header()->dict:
         "Authorization": msal_token()
         }
 
-def get_obj(obj_id:str):
+def get_sim_obj(obj_id:str):
     uri = f"{config.OSDUHOST}/api/storage/v2/records/{obj_id}"
     r = requests.get(url=uri,headers=get_header())
     try:
@@ -28,13 +28,12 @@ with open(MODEL_SPEC, 'r') as f:
     model_spec_dict = json.load(f)
     sim_ID = model_spec_dict["simId"]
     try:
-        sim_obj = get_obj(sim_ID)
+        sim_obj = get_sim_obj(sim_ID)
     except:
         import time
         time.sleep(10)
-        sim_obj = get_obj(sim_ID)
+        sim_obj = get_sim_obj(sim_ID)
     model_spec_dict.update(sim_obj["data"]["geomint"]["fullModel"]) 
-    print(sim_obj["data"]["geomint"])
     model_spec = GeomintFullModel.parse_obj(model_spec_dict)
     
 pts = []
